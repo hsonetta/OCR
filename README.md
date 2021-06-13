@@ -5,4 +5,4 @@ OCR with AWS Lambda
 
 Install EasyOCR package at https://github.com/JaidedAI/EasyOCR using the below command
 
-pip install easyocr
+    pip install easyocr
