@@ -40,6 +40,8 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.5/a
 kubectl apply -f eks-admin-service-account.yaml
 
 kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')
+#if grep is not recognized
+kubectl -n kube-system describe secret 
 
 kubectl proxy
 ```
