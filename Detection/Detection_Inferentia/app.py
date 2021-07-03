@@ -34,8 +34,6 @@ def predict(image, net, ocr_reader):
 
 @app.route('/predict', methods=["POST"])
 def detect_text():
-#     image = json.loads(request.data)['image']
-#     image = np.array(Image.open(BytesIO(base64.b64decode(image))).convert('L'))
     
     try:
         event_body = json.loads(request.data)['body']
