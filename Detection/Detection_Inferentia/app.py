@@ -34,9 +34,18 @@ def predict(image, net, ocr_reader):
 
 @app.route('/predict', methods=["POST"])
 def detect_text():
-    image = json.loads(request.data)['image']
+#     image = json.loads(request.data)['image']
+#     image = np.array(Image.open(BytesIO(base64.b64decode(image))).convert('L'))
+    
+    try:
+        event_body = json.loads(request.data)['body']
+        event_body = json.loads(event_body)
+        image = event_body['image'] # string type
+    except KeyError as e:
+        print(f"KeyError: {e}")
+        image = json.loads(request.data)['image']
+        
     image = np.array(Image.open(BytesIO(base64.b64decode(image))).convert('L'))
-
     ocr_reader = easyocr.Reader(['en'], detector=True, recognizer=False, gpu=False, download_enabled=False,
                                 model_storage_directory='model_file', user_network_directory='user_network')
     net = torch.jit.load('ocr_neuron.pt')
