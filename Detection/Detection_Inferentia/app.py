@@ -16,7 +16,7 @@ from io import BytesIO
 import numpy as np
 import torch
 import torch_neuron
-import easyocr
+from neuronocr_compilation import easyocr
 import base64
 import cv2
 
@@ -40,7 +40,6 @@ def detect_text():
         event_body = json.loads(event_body)
         image = event_body['image'] # string type
     except KeyError as e:
-        print(f"KeyError: {e}")
         image = json.loads(request.data)['image']
         
     image = np.array(Image.open(BytesIO(base64.b64decode(image))).convert('L'))
