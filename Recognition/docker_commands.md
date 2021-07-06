@@ -35,6 +35,9 @@ docker stop $(docker ps -a -q)
 
 # optionally remove the image
 docker rm $(docker ps -a -q)
+
+# optionally remove the image
+docker rmi imageid
 ```
 <br />
 
