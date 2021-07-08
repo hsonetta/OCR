@@ -20,4 +20,12 @@ git fetch
 
 # pull from online to local. Fast forward local copy. (= Fetch + Merge)
 git pull
+
+#To remove files from staging area
+git reset HEAD .
+
+#check logs 
+git log
+git log --oneline
+git log --oneline --graph --decorate
 ```
