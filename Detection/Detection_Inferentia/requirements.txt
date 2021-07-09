@@ -1,5 +1,5 @@
-torch
-torchvision>=0.5
+torch==1.8.1
+torchvision==0.9.1
 opencv-python
 scipy
 numpy
@@ -7,6 +7,8 @@ Pillow<8.3.0
 scikit-image
 python-bidi
 PyYAML
+Flask==2.0.1
+waitress==2.0.0
 
 
 
