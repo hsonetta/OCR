@@ -9,7 +9,7 @@ docker images
 ```
 3. tag the project id to the ECR uri
 ```
-docker tag fdf110b5ea47:project 206993404984.dkr.ecr.us-east-1.amazonaws.com/easyocr:latest
+docker tag fdf110b5ea47 206993404984.dkr.ecr.us-east-1.amazonaws.com/easyocr:latest
 ```
 
 4. push the image to aws
