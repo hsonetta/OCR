@@ -31,7 +31,7 @@ Handy Commands:
 	sudo service neuron-rtd stop	
 	
 - Commands to push docker image to ECR:
-	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 206993404984.dkr.ecr.us-east-1.amazonaws.com/detectocr
+	aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 206993404984.dkr.ecr.us-west-2.amazonaws.com/detectocr
 	docker tag 80aba6029b68 206993404984.dkr.ecr.us-east-1.amazonaws.com/detectocr
 	docker push 206993404984.dkr.ecr.us-east-1.amazonaws.com/detectocr
 	
