@@ -11,6 +11,7 @@ invocation.
 import easyocr
 import json
 import base64
+import time
 from io import BytesIO
 import numpy as np
 from PIL import Image
@@ -47,7 +48,22 @@ def handler(event, context):
         # decoded_byte = base64.b64decode(image)
         # pil_img = Image.open(BytesIO(base64.b64decode(image))).convert('L')
         # np_img = np.array(Image.open(BytesIO(base64.b64decode(image))).convert('L'))
+        start = time.time()
         result = reader.recognize(np.array(Image.open(BytesIO(base64.b64decode(image))).convert('L')))
-        response = {'result': result}
-    return response
-
+        end = time.time()
+        inf_time = end-start
+        return {
+            'statusCode': 200,
+            'body': json.dumps(
+                {
+                    'success': True,
+                    'message': 'ocr recognition success',
+                    'payload':
+                        {
+                            'text': result[0][1],
+                            'conf': result[0][2]
+                        },
+                    'inference_time_ms': inf_time
+                }
+            )
+        }

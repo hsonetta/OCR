@@ -32,8 +32,8 @@ Handy Commands:
 	
 - Commands to push docker image to ECR:
 	aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 206993404984.dkr.ecr.us-west-2.amazonaws.com/detectocr
-	docker tag 80aba6029b68 206993404984.dkr.ecr.us-east-1.amazonaws.com/detectocr
-	docker push 206993404984.dkr.ecr.us-east-1.amazonaws.com/detectocr
+	docker tag 80aba6029b68 206993404984.dkr.ecr.us-west-2.amazonaws.com/detectocr
+	docker push 206993404984.dkr.ecr.us-west-2.amazonaws.com/detectocr
 	
 Errors:
 1. ModuleNotFoundError: neuronocr_compilation not found:
@@ -45,6 +45,10 @@ Errors:
 	Either Neuron-RTD image is not run which opens the socket of inferentia chip to Docker
 Or
 	The Neuron-rtd id not stopped on the host before running the neuron-rtd image.	
+	
+	
+
+
 
 	
 	

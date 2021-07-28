@@ -3,5 +3,6 @@ Detection Lambda
 .ipynb_checkpoints
 .app.py.swp
 __pycache__
-Detection/Detection_Inferentia/easyocr/__pycache__/
 Steps for AWS lambda.txt
+.env
+.gitignore
