@@ -62,23 +62,21 @@ def detect_text():
     try:
         image = json.loads(request.data)['image']
     except KeyError:
-        print('Enter the image in the request')
-        return ('Enter the image in the request')
+        return {'body': json.dumps('Enter the image in the request')}
 
     # decode the base64 encoded input image
     image = np.array(Image.open(BytesIO(base64.b64decode(image))).convert('L'))
   
     # inference
     start = time.time()
-    model_type = 0
     try:
         model_type = json.loads(request.data)['model_type']
     except KeyError:
-        print('Enter model_type argument in request or else normal model will be loaded')
+        return {'body': json.dumps('Enter model_type argument in request')}
 
-    if model_type == 0:
+    if model_type == 0: #normal model
         response_data = predict_bbox(image, normal_model, ocr_reader)
-    else:
+    else: #neuron model
         response_data = predict_bbox(image, neuron_model, ocr_reader)
 
     end = time.time()
