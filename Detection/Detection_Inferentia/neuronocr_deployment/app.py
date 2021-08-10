@@ -60,27 +60,27 @@ def detect_text():
     '''
     # load the image from request data
     try:
-        # with API gateway
-        event_body = json.loads(request.data)['body']
-        event_body = json.loads(event_body)
-        image = event_body['image']
-    except KeyError as e:
-        # without API gateway
         image = json.loads(request.data)['image']
+    except KeyError:
+        print('Enter the image in the request')
+        return ('Enter the image in the request')
 
     # decode the base64 encoded input image
     image = np.array(Image.open(BytesIO(base64.b64decode(image))).convert('L'))
   
     # inference
     start = time.time()
-    if 'model_type' in json.loads(request.data):
+    model_type = 0
+    try:
         model_type = json.loads(request.data)['model_type']
-        if model_type == 0:
-            response_data = predict_bbox(image, normal_model, ocr_reader)
-        else:
-            response_data = predict_bbox(image, neuron_model, ocr_reader)
+    except KeyError:
+        print('Enter model_type argument in request or else normal model will be loaded')
+
+    if model_type == 0:
+        response_data = predict_bbox(image, normal_model, ocr_reader)
     else:
-        print('Enter model_type argument in request')
+        response_data = predict_bbox(image, neuron_model, ocr_reader)
+
     end = time.time()
     inf_time = end-start
     
