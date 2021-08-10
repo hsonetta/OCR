@@ -17,6 +17,7 @@ from flask import Flask, request
 from logging import getLogger
 app = Flask(__name__)
 from neuronocr_compilation import easyocr
+from neuronocr_compilation.easyocr.detection import get_detector
 
 
 LOGGER = getLogger(__name__)
@@ -24,6 +25,8 @@ ocr_reader = easyocr.Reader(['en'], detector=True, recognizer=False, gpu=False,
                             download_enabled=True, model_storage_directory='model_file',
                             user_network_directory='user_network')
 neuron_model = torch.jit.load('/home/inference/api/neuronocr_deployment/model_file/ocr_neuron.pt')
+normal_model = get_detector(r'/home/inference/api/neuronocr_deployment/model_file/craft_mlt_25k.pth')
+# normal_model = get_detector(r'model_file/craft_mlt_25k.pth')
 
 
 @app.route("/", methods=["GET"])
@@ -43,11 +46,9 @@ def predict_bbox(image, model, ocr_reader):
     # model was compiled using images size (224, 224)
     resized_image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
     result = ocr_reader.detect(resized_image, net=model)
-    # Flask response data should be converted to int
-    int_result = ([[[int(i) for i in small_list] for small_list in result[0][0]]],
-                  [[[int(j) for j in smal_list] for smal_list in result[1][0]]])
-    response = {'result': int_result}
-    return response
+    # Flask response data should be converted from int32 to int
+    coordinates = ([list(map(int, _)) for _ in result[0][0]])
+    return coordinates
 
 
 @app.route('/predict', methods=["POST"])
@@ -71,13 +72,31 @@ def detect_text():
     image = np.array(Image.open(BytesIO(base64.b64decode(image))).convert('L'))
   
     # inference
-    response_data = predict_bbox(image, neuron_model, ocr_reader)
+    start = time.time()
+    if 'model_type' in json.loads(request.data):
+        model_type = json.loads(request.data)['model_type']
+        if model_type == 0:
+            response_data = predict_bbox(image, normal_model, ocr_reader)
+        else:
+            response_data = predict_bbox(image, neuron_model, ocr_reader)
+    else:
+        print('Enter model_type argument in request')
+    end = time.time()
+    inf_time = end-start
     
     # clean up and return
     del image
     gc.collect()
-    return response_data
-
+    return {
+            'statusCode': 200,
+            'body': json.dumps(
+                {
+                    'message': 'ocr detection success',
+                    'coordinates': response_data,
+                    'inference_time_sec': inf_time
+                }
+            )
+    }
 
 if __name__ == '__main__':
     serve(app, host='0.0.0.0', port=5000)

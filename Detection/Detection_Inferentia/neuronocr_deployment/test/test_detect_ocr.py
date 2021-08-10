@@ -2,7 +2,6 @@ from neuronocr_compilation import easyocr
 # get_detector function to load model separately
 from neuronocr_compilation.easyocr.detection import get_detector
 
-img_dir = r'/home/ubuntu/ssl/Detection_Inferentia/neuronocr_deployment/images'
 
 def main():
     '''
@@ -14,7 +13,7 @@ def main():
                                 download_enabled=True, model_storage_directory='model_file',
                                 user_network_directory='user_network')
     model = get_detector(r'model_file/craft_mlt_25k.pth')
-    image_path = img_dir + '/facebook.jpg'
+    image_path = 'images/facebook.jpg'
     result = ocr_reader.detect(image_path, net=model)
     return result
 

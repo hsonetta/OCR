@@ -45,12 +45,3 @@ Errors:
 	Either Neuron-RTD image is not run which opens the socket of inferentia chip to Docker
 Or
 	The Neuron-rtd id not stopped on the host before running the neuron-rtd image.	
-	
-	
-
-
-
-	
-	
-	
-	
