@@ -4,3 +4,4 @@ streamlit==0.80.0
 Pillow==8.1.0
 opencv-python-headless
 streamlit-webrtc~=0.11.0
+easyocr==1.3.2

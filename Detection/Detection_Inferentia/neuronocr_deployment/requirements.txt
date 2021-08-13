@@ -9,7 +9,3 @@ python-bidi
 PyYAML
 Flask==2.0.1
 waitress==2.0.0
-
-
-
-

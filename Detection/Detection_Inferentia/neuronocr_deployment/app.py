@@ -22,7 +22,7 @@ from neuronocr_compilation.easyocr.detection import get_detector
 
 LOGGER = getLogger(__name__)
 ocr_reader = easyocr.Reader(['en'], detector=True, recognizer=False, gpu=False,
-                            download_enabled=True, model_storage_directory='model_file',
+                            download_enabled=False, model_storage_directory='model_file',
                             user_network_directory='user_network')
 neuron_model = torch.jit.load('/home/inference/api/neuronocr_deployment/model_file/ocr_neuron.pt')
 normal_model = get_detector(r'/home/inference/api/neuronocr_deployment/model_file/craft_mlt_25k.pth')
