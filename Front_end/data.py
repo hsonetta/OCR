@@ -12,9 +12,9 @@ style_models_dict = {name: os.path.join(model_path, filee) for name, filee in zi
 
 # Style Images Data
 
-content_images_file = ['text_lines.jpg', 'ocrimage.jpg', 'english.jpg']
+content_images_file = ['ocrimage.jpg', 'quote1.jpg', 'numberplate.jpg', 'english.jpg']
 
-content_images_name = ['Text Lines', 'OCR Image', 'English']
+content_images_name = ['OCR Image', 'AI Quote', 'Number Plate', 'English']
 
 images_path = 'images'
 
