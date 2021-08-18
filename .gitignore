@@ -1,0 +1,10 @@
+Detection Lambda
+.idea
+.ipynb_checkpoints
+.app.py.swp
+__pycache__
+Steps for AWS lambda.txt
+.env
+.gitignore
+test_detect_ocr.pyc
+Test_plotting_boxes.ipynb
