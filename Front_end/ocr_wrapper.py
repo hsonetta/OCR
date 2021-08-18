@@ -4,16 +4,16 @@ import requests
 import base64
 import cv2
 from dotenv import load_dotenv
+import streamlit as st
 load_dotenv()
 
 lambda_url = os.environ.get("lambda_url")
 
-
+@st.cache(suppress_st_warning=True)
 def detect_text(image, ocr_reader):
     # actual image
     result = ocr_reader.detect(image)
     return result[0]
-
 
 def crop_img(image, coords):
     crop_images = []
@@ -22,7 +22,7 @@ def crop_img(image, coords):
         crop_images.append(crop_img)
     return crop_images
 
-
+@st.cache(suppress_st_warning=True)
 def recognize_text(crop_images):
     text, conf_score, inf_time = [], [], []
     for img in crop_images:
