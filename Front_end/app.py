@@ -7,7 +7,7 @@ from input import image_input
 
 st.title("Text Recognition")
 st.sidebar.title('Navigation')
-method = st.sidebar.radio('Go To ->', options=['Webcam', 'Image'])
+method = st.sidebar.radio('Go To ->', options=['Image'])
 st.sidebar.header('Options')
 
 style_model_name = st.sidebar.selectbox("Choose the language model: ", lang_models_name)
